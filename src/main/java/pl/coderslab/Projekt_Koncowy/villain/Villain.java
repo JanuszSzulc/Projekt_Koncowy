@@ -27,11 +27,13 @@ public class Villain {
     @Column(name = "last_name", nullable = false, length = 30)
     private String lastName;
     @Column(name = "origin_country")
+    private String originCountry;
+    @Column(name = "created_on")
     private LocalDateTime createdOn;
     @Column(nullable = false, scale = 2)
     private Double deposit;
-    @Column(nullable = false)
-    private Double punishment;
+    //    @Column(nullable = false)
+//    private Double punishment;
     @Column(nullable = false)
     private boolean alive;
 
@@ -40,7 +42,7 @@ public class Villain {
     private List<Offense> offenseList = new ArrayList<>();
 
     @ManyToOne(optional = false)
-    private Prison prisonersList;
+    private Prison prison;
 
     @ManyToOne
     private Transfer transfer;
