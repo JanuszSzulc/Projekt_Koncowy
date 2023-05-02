@@ -3,8 +3,11 @@ package pl.coderslab.Projekt_Koncowy.transfer;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import pl.coderslab.Projekt_Koncowy.villain.Villain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "transfers")
@@ -23,4 +26,8 @@ public class Transfer {
     private boolean executionStatus;
     @Column(name = "transfer_date")
     private String transferDate;
+
+    @OneToMany(mappedBy = "transfer")
+    @ToString.Exclude
+    private List<Villain> villain = new ArrayList<>();
 }

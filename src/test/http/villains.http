@@ -1,0 +1,2 @@
+### get all villains
+GET http://localhost:8080/prison/villains

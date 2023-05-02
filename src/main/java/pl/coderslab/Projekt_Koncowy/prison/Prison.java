@@ -3,8 +3,11 @@ package pl.coderslab.Projekt_Koncowy.prison;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
+import pl.coderslab.Projekt_Koncowy.villain.Villain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "jails")
@@ -22,5 +25,9 @@ public class Prison {
     private String dateOpened;
     @Column(name = "number_of_cells")
     private Integer numberOfCells;
+
+    @OneToMany(mappedBy = "prisonersList")
+    @ToString.Exclude
+    private List<Villain> villainList = new ArrayList<>();
 
 }

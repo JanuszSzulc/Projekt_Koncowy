@@ -25,4 +25,10 @@ public class Offense {
 
     @ManyToOne
     private Villain villain;
+
+//    @ManyToMany
+//    @JoinTable(name = "villains_offenses",
+//            joinColumns = @JoinColumn(name = "villain_id",referencedColumnName = "id"),
+//            inverseJoinColumns = @JoinColumn(name = "offense_id", referencedColumnName = "id"))
+//    private List<Villain> villains;
 }
