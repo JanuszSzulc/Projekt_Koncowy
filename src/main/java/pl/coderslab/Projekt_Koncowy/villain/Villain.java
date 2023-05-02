@@ -32,7 +32,7 @@ public class Villain {
     private LocalDateTime createdOn;
     @Column(nullable = false, scale = 2)
     private Double deposit;
-    //    @Column(nullable = false)
+//    @Column(nullable = false)
 //    private Double punishment;
     @Column(nullable = false)
     private boolean alive;

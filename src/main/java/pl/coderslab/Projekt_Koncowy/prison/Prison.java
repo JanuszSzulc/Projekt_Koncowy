@@ -26,7 +26,7 @@ public class Prison {
     @Column(name = "number_of_cells")
     private Integer numberOfCells;
 
-    @OneToMany(mappedBy = "prisonersList")
+    @OneToMany(mappedBy = "prison")
     @ToString.Exclude
     private List<Villain> villainList = new ArrayList<>();
 
