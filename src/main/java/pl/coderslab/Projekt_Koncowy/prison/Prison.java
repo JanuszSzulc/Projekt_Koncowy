@@ -1,11 +1,13 @@
 package pl.coderslab.Projekt_Koncowy.prison;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.*;
+import pl.coderslab.Projekt_Koncowy.transfer.Transfer;
 import pl.coderslab.Projekt_Koncowy.villain.Villain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +16,9 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Prison {
 
     @Id
@@ -30,4 +35,6 @@ public class Prison {
     @ToString.Exclude
     private List<Villain> villainList = new ArrayList<>();
 
+    @ManyToOne
+    private Transfer transfer;
 }

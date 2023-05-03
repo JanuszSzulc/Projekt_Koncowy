@@ -2,11 +2,14 @@ package pl.coderslab.Projekt_Koncowy.villain;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/prison/villains")
@@ -22,5 +25,23 @@ public class VillainController {
         List<VillainDto> villains = villainManager.getAll();
         log.debug("Collected {} villains", villains.size());
         return villains;
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<VillainDto> getVillain(@PathVariable Long id) {
+        Optional<VillainDto> villainDto = villainManager.getById(id);
+        return villainDto
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<VillainDto> updateVillain(@PathVariable Long id,
+                                                    @RequestBody @Valid UpdateVillainParams request) {
+        if (!id.equals(request.id())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "ID not found");
+        }
+        VillainDto villainDto = villainManager.update(request);
+        return ResponseEntity.ok(villainDto);
     }
 }
