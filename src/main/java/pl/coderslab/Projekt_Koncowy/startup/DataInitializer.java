@@ -1,6 +1,5 @@
 package pl.coderslab.Projekt_Koncowy.startup;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Profile;
@@ -9,6 +8,7 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.Projekt_Koncowy.offense.Offense;
+import pl.coderslab.Projekt_Koncowy.offense.OffenseDto;
 import pl.coderslab.Projekt_Koncowy.offense.OffenseLevel;
 import pl.coderslab.Projekt_Koncowy.offense.OffenseRepository;
 import pl.coderslab.Projekt_Koncowy.prison.Prison;
@@ -17,6 +17,9 @@ import pl.coderslab.Projekt_Koncowy.transfer.Transfer;
 import pl.coderslab.Projekt_Koncowy.transfer.TransferRepository;
 import pl.coderslab.Projekt_Koncowy.villain.Villain;
 import pl.coderslab.Projekt_Koncowy.villain.VillainRepository;
+
+import java.util.List;
+
 
 @Profile("local")
 @Component
@@ -31,7 +34,6 @@ public class DataInitializer {
 
     @EventListener
     @Transactional
-    @JsonFormat(pattern = "dd.MM.yyyy")
     public void loadInitialData(ContextRefreshedEvent unused) {
         Prison atlanta =
                 Prison.builder()
@@ -57,30 +59,6 @@ public class DataInitializer {
                         .build();
         prisonRepository.save(alcatraz);
 
-        Villain alCapone =
-                Villain.builder()
-                        .prison(atlanta)
-                        .firstName("Alphonse")
-                        .lastName("Capone")
-                        .originCountry("USA")
-                        .dateOfConviction("16.11.1939")
-                        .deposit(1000000.05)
-                        .alive(true)
-                        .build();
-        villainRepository.save(alCapone);
-
-        Villain RobertShroud =
-                Villain.builder()
-                        .prison(leavenworth)
-                        .firstName("Robert")
-                        .lastName("Stroud")
-                        .originCountry("USA")
-                        .dateOfConviction("23.02.1909")
-                        .deposit(500000.01)
-                        .alive(true)
-                        .build();
-        villainRepository.save(RobertShroud);
-
         Offense taxFrauds =
                 Offense.builder()
                         .level(OffenseLevel.MEDIUM)
@@ -94,6 +72,32 @@ public class DataInitializer {
                         .description("murder of people")
                         .build();
         offenseRepository.save(murder);
+
+        Villain alCapone =
+                Villain.builder()
+                        .prison(atlanta)
+                        .firstName("Alphonse")
+                        .lastName("Capone")
+                        .originCountry("USA")
+                        .dateOfConviction("16.11.1939")
+                        .deposit(1000000.05)
+                        .offense(taxFrauds)
+                        .alive(true)
+                        .build();
+        villainRepository.save(alCapone);
+
+        Villain robertShroud =
+                Villain.builder()
+                        .prison(leavenworth)
+                        .firstName("Robert")
+                        .lastName("Stroud")
+                        .originCountry("USA")
+                        .dateOfConviction("23.02.1909")
+                        .deposit(500000.01)
+                        .offense(murder)
+                        .alive(true)
+                        .build();
+        villainRepository.save(robertShroud);
 
         Transfer transferAlcatraz =
                 Transfer.builder()

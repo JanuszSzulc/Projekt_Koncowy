@@ -1,13 +1,10 @@
 package pl.coderslab.Projekt_Koncowy.prison;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 import pl.coderslab.Projekt_Koncowy.transfer.Transfer;
 import pl.coderslab.Projekt_Koncowy.villain.Villain;
 
 import javax.persistence.*;
-import javax.validation.constraints.Pattern;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 

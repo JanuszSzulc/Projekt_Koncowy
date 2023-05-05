@@ -1,6 +1,7 @@
 package pl.coderslab.Projekt_Koncowy.villain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import pl.coderslab.Projekt_Koncowy.prison.Prison;
 
 import java.util.Optional;
 

@@ -1,20 +1,23 @@
 package pl.coderslab.Projekt_Koncowy.villain;
 
-import pl.coderslab.Projekt_Koncowy.prison.Prison;
+import pl.coderslab.Projekt_Koncowy.offense.Offense;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
-public record UpdateVillainParams(
-        Long id,
+public record CreateVillainRequest(
         @NotBlank
         String firstName,
         @NotBlank
         String lastName,
-        Prison prison,
         String originCountry,
-        Double deposit,
+        @NotBlank
+        String prisonName,
         @NotBlank
         String dateOfConviction,
+        Double deposit,
         boolean alive,
-        Long offense) {
+        Long offense,
+        String description
+) {
 }

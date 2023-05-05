@@ -9,4 +9,6 @@ public interface VillainManager {
     Optional<VillainDto> getById(Long id);
 
     VillainDto update(UpdateVillainParams updateVillainParams);
+
+    VillainDto create(CreateVillainRequest request);
 }

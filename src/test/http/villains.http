@@ -11,10 +11,25 @@ Content-Type: application/json
 {
   "id": 1,
   "firstName": "Zbigniew",
-  "lastName": "Ziobro",
+  "lastName": "zz",
   "originCountry": "Poland",
-  "prisonName": "Wronia",
-  "dateOfConviction": "31.12.2022",
   "deposit": 2.02,
-  "alive": false
+  "dateOfConviction": "31.12.2022",
+  "alive": false,
+  "offense": 2
+}
+
+### create villain
+POST http://localhost:8080/prison/villains/
+Content-Type: application/json
+
+{
+  "firstName": "Tomasz",
+  "lastName": "Łacina",
+  "prisonName": "Alcatraz",
+  "deposit": 9.99,
+  "dateOfConviction": "23.05.2023",
+  "originCountry": "Wrocław",
+  "alive": true,
+  "offense": 3
 }

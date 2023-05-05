@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,5 +44,11 @@ public class VillainController {
         }
         VillainDto villainDto = villainManager.update(request);
         return ResponseEntity.ok(villainDto);
+    }
+
+    @PostMapping
+    public ResponseEntity<?> createVillain(@RequestBody @Valid CreateVillainRequest request) {
+        VillainDto summary = villainManager.create(request);
+        return ResponseEntity.created(URI.create("/prison/villains" + summary.id())).body(summary);
     }
 }
