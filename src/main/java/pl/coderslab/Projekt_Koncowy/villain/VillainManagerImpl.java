@@ -4,11 +4,10 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import pl.coderslab.Projekt_Koncowy.offense.Offense;
-import pl.coderslab.Projekt_Koncowy.offense.OffenseLevel;
 import pl.coderslab.Projekt_Koncowy.offense.OffenseRepository;
 import pl.coderslab.Projekt_Koncowy.prison.Prison;
 import pl.coderslab.Projekt_Koncowy.prison.PrisonRepository;
-import pl.coderslab.Projekt_Koncowy.transfer.TransferRepository;
+
 
 import java.util.List;
 import java.util.Optional;
@@ -23,14 +22,14 @@ public class VillainManagerImpl implements VillainManager {
     private final VillainRepository villainRepository;
     private final PrisonRepository prisonRepository;
     private final OffenseRepository offenseRepository;
-    private final TransferRepository transferRepository;
+//    private final TransferRepository transferRepository;
+
 
     @Override
-    public List<VillainDto> getAll() {
+    public List<Villain> getAll() {
         List<Villain> villains = villainRepository.findAll();
-        return villains.stream()
-                .map(this::toSummary)
-                .collect(Collectors.toList());
+        return villains;
+//                villains.stream().map(this::toSummary).collect(Collectors.toList());
     }
 
     @Override
@@ -82,17 +81,18 @@ public class VillainManagerImpl implements VillainManager {
                         .findByName(request.prisonName())
                         .orElseThrow(
                                 () -> new IllegalArgumentException("No prison with name " + request.prisonName()));
+        prisonRepository.save(prison);
 
         Offense offense =
                 offenseRepository
                         .findById(request.offense())
                         .orElseThrow(
                                 () -> new IllegalArgumentException("No offense with id " + request.offense()));
-        List<Offense> changeList = offenseRepository.findAllById(offense.getId());
-
-        if (changeList.isEmpty()) {
-            throw new IllegalStateException("No offenses");
-        }
+//        List<Offense> changeList = offenseRepository.findAllById(offense.getId());
+//
+//        if (changeList.isEmpty()) {
+//            throw new IllegalStateException("No offenses");
+        offenseRepository.save(offense);
 
         Villain villain =
                 Villain.builder()
@@ -113,6 +113,35 @@ public class VillainManagerImpl implements VillainManager {
 //        offenseRepository.saveAll(changeList);
         return toSummary(villain);
     }
+
+    @Override
+    public List<Villain> findAllVillainsContains(List<Villain> villainList) {
+        return villainRepository.findVillainsList(villainList);
+    }
+
+
+//    @Override
+//    public ResponseEntity<List<Villain>> findAllVillainsContains(List<Villain> villain) {
+//        return villainRepository.findVillainsList(villain);
+//    }
+
+
+//    @Override
+//    public List<Villain> findVillainsByPrison(Optional<Villain> villain) {
+//        List<Villain> villainList = villainRepository.findAll(villain);
+//@Override
+//public List<Villain> findAllVillainsContains(List<Villain> villain) {
+//    return villainRepository.findVillains(villain);
+//
+//}
+
+//    @Override
+//    public Optional<VillainDto> findAllVillainsContains(Optional<PrisonDto> prison) {
+//        Optional<VillainDto> villainList = villainRepository.findAll(prison);
+//        return Optional.ofNullable(villainList
+//                .orElseThrow(() -> new IllegalArgumentException("No villains here")));
+//    }
+
 
     private VillainDto toSummary(Villain villain) {
         return new VillainDto(villain.getId(),

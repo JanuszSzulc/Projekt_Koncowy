@@ -1,5 +1,11 @@
 ### get all prisons
-GET http://localhost:8080/prison
+GET http://localhost:8080/prisons
 
 ### get prison by id
-GET http://localhost:8080/prison/1
+GET http://localhost:8080/prisons/1
+
+### get prison by name
+GET http://localhost:8080/prisons/findByName/Atlanta
+
+### find villains by prison id
+GET http://localhost:8080/prisons/allByPrisonId/1

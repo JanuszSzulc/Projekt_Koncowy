@@ -8,16 +8,15 @@ import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 import pl.coderslab.Projekt_Koncowy.offense.Offense;
-import pl.coderslab.Projekt_Koncowy.offense.OffenseDto;
 import pl.coderslab.Projekt_Koncowy.offense.OffenseLevel;
 import pl.coderslab.Projekt_Koncowy.offense.OffenseRepository;
 import pl.coderslab.Projekt_Koncowy.prison.Prison;
 import pl.coderslab.Projekt_Koncowy.prison.PrisonRepository;
-import pl.coderslab.Projekt_Koncowy.transfer.Transfer;
-import pl.coderslab.Projekt_Koncowy.transfer.TransferRepository;
 import pl.coderslab.Projekt_Koncowy.villain.Villain;
 import pl.coderslab.Projekt_Koncowy.villain.VillainRepository;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -30,11 +29,15 @@ public class DataInitializer {
     private final PrisonRepository prisonRepository;
     private final VillainRepository villainRepository;
     private final OffenseRepository offenseRepository;
-    private final TransferRepository transferRepository;
+
+//    private final TransferRepository transferRepository;
 
     @EventListener
     @Transactional
     public void loadInitialData(ContextRefreshedEvent unused) {
+
+        log.info("Loading initial data...");
+
         Prison atlanta =
                 Prison.builder()
                         .name("Atlanta")
@@ -99,13 +102,21 @@ public class DataInitializer {
                         .build();
         villainRepository.save(robertShroud);
 
-        Transfer transferAlcatraz =
-                Transfer.builder()
-                        .destinationPrison("Alcatraz")
-                        .reason("stricter rigor")
-                        .executionStatus(false)
-                        .transferDate(null)
-                        .build();
-        transferRepository.save(transferAlcatraz);
+        alcatraz.setVillainList(new ArrayList<>(Collections.singleton(alCapone)));
+        leavenworth.setVillainList(new ArrayList<>(Collections.singleton(robertShroud)));
+
+        taxFrauds.setVillainOffenseList(List.of(alCapone));
+        murder.setVillainOffenseList(List.of(robertShroud));
+
+//        Transfer transferAlcatraz =
+//                Transfer.builder()
+//                        .destinationPrison("Alcatraz")
+//                        .reason("stricter rigor")
+//                        .executionStatus(false)
+//                        .transferDate(null)
+//                        .build();
+//        transferRepository.save(transferAlcatraz);
+
+        log.info("Initial data loaded.");
     }
 }

@@ -1,9 +1,8 @@
 package pl.coderslab.Projekt_Koncowy.villain;
 
-import pl.coderslab.Projekt_Koncowy.offense.Offense;
-
 import javax.validation.constraints.NotBlank;
-import java.util.List;
+import javax.validation.constraints.NotNull;
+
 
 public record CreateVillainRequest(
         @NotBlank
@@ -17,6 +16,7 @@ public record CreateVillainRequest(
         String dateOfConviction,
         Double deposit,
         boolean alive,
+        @NotNull
         Long offense,
         String description
 ) {

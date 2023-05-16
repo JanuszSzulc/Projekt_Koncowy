@@ -2,9 +2,8 @@ package pl.coderslab.Projekt_Koncowy.villain;
 
 import lombok.*;
 import pl.coderslab.Projekt_Koncowy.offense.Offense;
-import pl.coderslab.Projekt_Koncowy.offense.OffenseLevel;
 import pl.coderslab.Projekt_Koncowy.prison.Prison;
-import pl.coderslab.Projekt_Koncowy.transfer.Transfer;
+//import pl.coderslab.Projekt_Koncowy.transfer.Transfer;
 
 import javax.persistence.*;
 import javax.validation.constraints.Pattern;
@@ -51,8 +50,8 @@ public class Villain {
     @ManyToOne(optional = false)
     private Offense offense;
 
-    @ManyToOne
-    private Transfer transfer;
+//    @ManyToOne
+//    private Transfer transfer;
 
 
 //    @ManyToMany(mappedBy = "villains")
