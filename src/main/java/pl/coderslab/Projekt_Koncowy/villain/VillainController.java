@@ -6,7 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import pl.coderslab.Projekt_Koncowy.prison.Prison;
+import pl.coderslab.Projekt_Koncowy.prison.PrisonDto;
 import pl.coderslab.Projekt_Koncowy.prison.PrisonManager;
 
 import javax.validation.Valid;
@@ -24,10 +24,10 @@ public class VillainController {
     private final PrisonManager prisonManager;
 
     @GetMapping
-    public List<Villain> getAllVillains() {
-        List<Villain> villain = villainManager.getAll();
-        log.debug("Collected {} prisoners", villain.size());
-        return villain.stream().toList();
+    public List<VillainDto> getAllVillains() {
+        List<VillainDto> villains = villainManager.getAll();
+        log.debug("Collected {} prisoners", villains.size());
+        return villains;
     }
 
     @GetMapping("/{id}")
@@ -41,10 +41,10 @@ public class VillainController {
     //, produces = MediaType.APPLICATION_JSON_VALUE
     @GetMapping("/allVillainsByPrisonId/{id}")
     public List<Villain> findVillainsByPrison(@PathVariable Long id) {
-        Prison prison = prisonManager.getById(id)
+        PrisonDto prison = prisonManager.getById(id)
                 .orElseThrow(() -> new RuntimeException("No prison with id: " + id));
 
-        List<Villain> villainList = villainManager.getAll();
+        List<VillainDto> villainList = villainManager.getAll();
 
         return villainManager.findAllVillainsContains(villainList);
 

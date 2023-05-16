@@ -26,10 +26,10 @@ public class VillainManagerImpl implements VillainManager {
 
 
     @Override
-    public List<Villain> getAll() {
+    public List<VillainDto> getAll() {
         List<Villain> villains = villainRepository.findAll();
-        return villains;
-//                villains.stream().map(this::toSummary).collect(Collectors.toList());
+        return villains.stream().map(this::toSummary).collect(Collectors.toList());
+//
     }
 
     @Override
@@ -115,7 +115,7 @@ public class VillainManagerImpl implements VillainManager {
     }
 
     @Override
-    public List<Villain> findAllVillainsContains(List<Villain> villainList) {
+    public List<Villain> findAllVillainsContains(List<VillainDto> villainList) {
         return villainRepository.findVillainsList(villainList);
     }
 

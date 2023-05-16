@@ -7,7 +7,7 @@ public interface PrisonManager {
 
     List<PrisonDto> getAll();
 
-    Optional<Prison> getById(Long id);
+    Optional<PrisonDto> getById(Long id);
 
     Optional<PrisonDto> findByName(String name);
 

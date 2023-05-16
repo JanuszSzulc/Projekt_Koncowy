@@ -26,8 +26,9 @@ public class PrisonController {
     }
 
     @GetMapping("/{id}")
-    public Optional<Prison> getPrison(@PathVariable Long id) {
-        return prisonManager.getById(id);
+    public ResponseEntity<PrisonDto> getPrison(@PathVariable Long id) {
+        Optional<PrisonDto> prison = prisonManager.getById(id);
+        return prison.map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping("/findByName/{name}")

@@ -18,16 +18,14 @@ public class PrisonManagerImpl implements PrisonManager {
 
     @Override
     public List<PrisonDto> getAll() {
-        List<Prison> prisoners = prisonRepository.findAll();
-        return prisoners.stream()
-                .map(this::toSummary)
-                .collect(Collectors.toList());
+        List<Prison> prisons = prisonRepository.findAll();
+        return prisons.stream().map(this::toSummary).collect(Collectors.toList());
     }
 
     @Override
-    public Optional<Prison> getById(Long id) {
+    public Optional<PrisonDto> getById(Long id) {
         Optional<Prison> prison = prisonRepository.findById(id);
-        return prison;
+        return prison.map(this::toSummary);
     }
 
     @Override
